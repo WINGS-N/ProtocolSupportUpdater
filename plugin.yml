@@ -1,0 +1,21 @@
+name: ProtocolSupportUpdater
+main: io.WINGS.ProtocolSupportUpdater.Main
+version: 1.3
+author: WINGS7
+website: null0
+description: 'This plugin can update ProtocolSupport.'
+load: POSTWORLD
+
+commands:
+    psu:
+        usage: /<command> u/help
+        description: update or help main command.
+        aliases: [protocolsupportupdater]
+
+permissions:
+  wings.psu.upd:
+    description: Allows update protocolsupport.
+    default: op
+  wings.psu.help:
+    description: Allows get help.
+    default: op
