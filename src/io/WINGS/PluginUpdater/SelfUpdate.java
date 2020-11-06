@@ -1,4 +1,4 @@
-package io.WINGS.PluginUpdater.ProtocolSupport;
+package io.WINGS.PluginUpdater;
 
 import java.io.File;
 import java.io.InputStream;
@@ -11,35 +11,37 @@ import java.nio.file.StandardCopyOption;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import io.WINGS.PluginUpdater.storage.SelfUpdateData;
 import io.WINGS.ProtocolSupportUpdater.storage.SS;
 import net.md_5.bungee.api.ChatColor;
 
-public class Update {
+public class SelfUpdate {
 
-	public Boolean updateInProgress = false;
 	
-    public Update(CommandSender s) {
+public Boolean updateInProgress = false;
+	
+    public SelfUpdate(CommandSender s) {
         if(updateInProgress) {
             s.sendMessage(ChatColor.RED + "Update already in progress");
             return;
         }
         
-        s.sendMessage(ChatColor.RED + "Downloading " + SS.PSName + "...");
+        s.sendMessage(ChatColor.RED + "Self-Updating " + SelfUpdateData.PluginName + "...");
         
         updateInProgress = true;
-        @SuppressWarnings("unused")
-		File psFile = null;
+        //@SuppressWarnings("unused")
+		//File psFile = null;
 
         try {
         	Method getFile = JavaPlugin.class.getDeclaredMethod("getFile");
             getFile.setAccessible(true);
-            File dest = new File("plugins/" + SS.PSName + SS.ext);
+            File dest = new File("plugins/" + SelfUpdateData.PluginName + SS.ext);
 
             //Connect
             URL url =
-            new URL(SS.JenkinsURL +
-                    SS.PSName +
-                    SS.ext);
+            new URL(SelfUpdateData.GithubURL +
+                    SelfUpdateData.PluginName +
+                    SelfUpdateData.ext);
             
             // Creating con
             HttpURLConnection con = (HttpURLConnection) url.openConnection();

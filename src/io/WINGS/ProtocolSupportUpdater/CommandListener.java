@@ -14,11 +14,11 @@ public class CommandListener implements Listener, CommandExecutor {
     public boolean onCommand(CommandSender s, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase(SS.maincmd)) {
 
-            	if(args.length == 0) {
-            		if(s.hasPermission(SS.helpperm)) {
-            			new HelpCmd(s);
-            		}
+            if(args.length <= 0) {
+            	if(s.hasPermission(SS.helpperm)) {
+            		new HelpCmd(s);
             	}
+            }
             
            	if(args[0].equalsIgnoreCase("u")) {
            		if(s.hasPermission(SS.updperm)) {
@@ -26,9 +26,17 @@ public class CommandListener implements Listener, CommandExecutor {
            		}
             }
            	
-            else if (s.hasPermission(SS.helpperm)){
-            	new HelpCmd(s);
-            }
+           	if(args[0].equalsIgnoreCase("h")) {
+           		if (s.hasPermission(SS.helpperm)){
+           			new HelpCmd(s);
+           		}
+           	}
+           	
+           	else {
+           		if(s.hasPermission(SS.helpperm)) {
+           			new HelpCmd(s);
+           		}
+           	}
         }
 	return true;
     }

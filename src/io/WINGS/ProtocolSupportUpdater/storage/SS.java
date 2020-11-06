@@ -17,7 +17,7 @@ public interface SS {
 	String Unloading = "Unloading";
 	String PSNotFound = "ProtocolSupport not found! Downloading...";
 	String CoreVer = "Core Version Detected: " + Bukkit.getVersion();
-	String Author = "By WINGS7 (WINGS07)";
+	String Author = "By WINGS7";
 	String PluginVer = "Plugin Version Detected: " + Bukkit.getPluginManager().getPlugin(PluginName).getDescription().getVersion();
 	
 	//Commands
@@ -30,7 +30,7 @@ public interface SS {
 	//Help
 	String help1 = "/psu u - update ProtocolSupport";
 	
-	//Jenkins
+	//GetJAR
 	String JenkinsURL = "https://build.true-games.org/job/ProtocolSupport/lastSuccessfulBuild/artifact/target/";
 	String ext = ".jar";
 }
