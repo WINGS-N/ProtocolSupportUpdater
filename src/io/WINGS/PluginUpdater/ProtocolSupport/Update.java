@@ -20,7 +20,7 @@ public class Update {
 	
     public Update(CommandSender s) {
         if(updateInProgress) {
-            s.sendMessage(ChatColor.RED + "Update already in progress");
+            s.sendMessage(SS.prefix + ChatColor.RED + "Update already in progress!");
             return;
         }
         
@@ -50,10 +50,10 @@ public class Update {
             	Files.copy(input, dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
               	}
 
-            s.sendMessage(ChatColor.RED + "Update success!");
+            s.sendMessage(SS.prefix + ChatColor.RED + "Update success!");
         } catch (Exception ex) {
         	ex.printStackTrace();
-            s.sendMessage(ChatColor.RED + "Update failed, " + ex.getMessage());
+            s.sendMessage(SS.prefix + ChatColor.RED + "Update failed, " + ex.getMessage());
         } finally {
         	updateInProgress = false;
         }

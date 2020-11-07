@@ -8,6 +8,6 @@ import net.md_5.bungee.api.ChatColor;
 public class HelpCmd {
 
 	public HelpCmd(CommandSender s) {
-		s.sendMessage(ChatColor.LIGHT_PURPLE + SS.help1);
+		s.sendMessage(SS.prefix + ChatColor.LIGHT_PURPLE + SS.help1);
 	}
 }

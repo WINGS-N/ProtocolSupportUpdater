@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 
+import io.WINGS.PluginUpdater.SelfUpdate;
 import io.WINGS.ProtocolSupportUpdater.CMD.HelpCmd;
 import io.WINGS.ProtocolSupportUpdater.CMD.UpdCmd;
 import io.WINGS.ProtocolSupportUpdater.storage.SS;
@@ -34,6 +35,21 @@ public class CommandListener implements Listener, CommandExecutor {
             	case "update":
             		if(s.hasPermission(SS.updperm)) {
             			new UpdCmd(s);
+            		}
+            		break;
+            	case "su":
+            		if(s.hasPermission(SS.updperm)) {
+            			new SelfUpdate(s);
+            		}
+            		break;
+            	case "selfupd":
+            		if(s.hasPermission(SS.updperm)) {
+            			new SelfUpdate(s);
+            		}
+            		break;
+            	case "selfupdate":
+            		if(s.hasPermission(SS.updperm)) {
+            			new SelfUpdate(s);
             		}
             		break;
             	case "h":

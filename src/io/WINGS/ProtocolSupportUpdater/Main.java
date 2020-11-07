@@ -18,16 +18,14 @@ public class Main extends JavaPlugin implements Listener {
 	FileConfiguration config = this.getConfig();
 	
 	public void onEnable() {
-		//config
+		//configuration
 		this.saveDefaultConfig();
-		config.addDefault(" ", "");
 		config.addDefault("UpdateOnPluginLoad", true);
 		config.options().copyDefaults(true);
 		this.saveConfig();
 		
 		log.info(SS.Loading);
-		//Reg cmd
-		getCommand(SS.maincmd).setExecutor(exec);
+		getCommand(SS.maincmd).setExecutor(exec); //register command executor
 		log.info(SS.CoreVer);
 		log.info(SS.PluginVer);
 		log.info(SS.Author);
