@@ -43,9 +43,6 @@ public interface SS {
 	String noperms = prefix + ChatColor.DARK_RED + "No permissions!";
 	
 	//Help
-	String help1 = "/psu u - update ProtocolSupport";
-	
-	//GetJAR
-	String JenkinsURL = "https://build.true-games.org/job/ProtocolSupport/lastSuccessfulBuild/artifact/target/";
-	String ext = ".jar";
+	String help1 = prefix + "/" + maincmd + " u - update " + PSName;
+	String help2 = prefix + "/" + maincmd + " su - update " + PluginName;
 }

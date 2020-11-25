@@ -1,4 +1,4 @@
-package io.WINGS.PluginUpdater;
+package io.WINGS.PluginUpdater.ProtocolSupport;
 
 import java.io.File;
 import java.io.InputStream;
@@ -8,40 +8,42 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.WINGS.PluginUpdater.storage.SelfUpdateData;
 import io.WINGS.ProtocolSupportUpdater.storage.SS;
+import io.WINGS.ProtocolSupportUpdater.storage.UpdateData;
 import net.md_5.bungee.api.ChatColor;
 
-public class SelfUpdate {
+public class UpdateFromBackupServer {
 
+	FileConfiguration config = Bukkit.getPluginManager().getPlugin(SS.PluginName).getConfig();
+	public Boolean updateInProgress = false;
 	
-public Boolean updateInProgress = false;
-	
-    public SelfUpdate(CommandSender s) {
+    public UpdateFromBackupServer(CommandSender s) {
         if(updateInProgress) {
-            s.sendMessage(ChatColor.RED + "Update already in progress");
+            s.sendMessage(SS.prefix + ChatColor.RED + "Update from backup server already in progress!");
             return;
         }
         
-        s.sendMessage(SS.prefix + ChatColor.RED + "Self-Updating " + SelfUpdateData.PluginName + "...");
+        s.sendMessage(SS.prefix + ChatColor.RED + "Downloading " + SS.PSName + " from backup server...");
         
         updateInProgress = true;
-        //@SuppressWarnings("unused")
-		//File psFile = null;
+        @SuppressWarnings("unused")
+		File psFile = null;
 
         try {
         	Method getFile = JavaPlugin.class.getDeclaredMethod("getFile");
             getFile.setAccessible(true);
-            File dest = new File("plugins/" + SelfUpdateData.PluginName + SelfUpdateData.ext);
+            File dest = new File("plugins/" + SS.PSName + UpdateData.ext);
 
             //Connect
             URL url =
-            new URL(SelfUpdateData.GithubURL +
-                    SelfUpdateData.PluginName +
-                    SelfUpdateData.ext);
+            new URL(UpdateData.BackupURL +
+                    SS.PSName +
+                    UpdateData.ext);
             
             // Creating con
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -52,10 +54,10 @@ public Boolean updateInProgress = false;
             	Files.copy(input, dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
               	}
 
-            s.sendMessage(SS.prefix + ChatColor.RED + "Update success!");
+            s.sendMessage(SS.prefix + ChatColor.RED + "Update from backup server success!");
         } catch (Exception ex) {
         	ex.printStackTrace();
-            s.sendMessage(SS.prefix + ChatColor.RED + "Update failed, " + ex.getMessage());
+            s.sendMessage(SS.prefix + ChatColor.RED + "Update from backup server failed, " + ex.getMessage());
         } finally {
         	updateInProgress = false;
         }

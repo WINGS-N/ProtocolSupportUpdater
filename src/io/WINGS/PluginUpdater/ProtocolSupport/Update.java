@@ -8,14 +8,18 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.WINGS.ProtocolSupportUpdater.storage.SS;
+import io.WINGS.ProtocolSupportUpdater.storage.UpdateData;
 import net.md_5.bungee.api.ChatColor;
 
 public class Update {
 
+	FileConfiguration config = Bukkit.getPluginManager().getPlugin(SS.PluginName).getConfig();
 	public Boolean updateInProgress = false;
 	
     public Update(CommandSender s) {
@@ -24,7 +28,7 @@ public class Update {
             return;
         }
         
-        s.sendMessage(ChatColor.RED + "Downloading " + SS.PSName + "...");
+        s.sendMessage(SS.prefix + ChatColor.RED + "Downloading " + SS.PSName + "...");
         
         updateInProgress = true;
         @SuppressWarnings("unused")
@@ -33,13 +37,13 @@ public class Update {
         try {
         	Method getFile = JavaPlugin.class.getDeclaredMethod("getFile");
             getFile.setAccessible(true);
-            File dest = new File("plugins/" + SS.PSName + SS.ext);
+            File dest = new File("plugins/" + SS.PSName + UpdateData.ext);
 
             //Connect
             URL url =
-            new URL(SS.JenkinsURL +
+            new URL(UpdateData.JenkinsURL +
                     SS.PSName +
-                    SS.ext);
+                    UpdateData.ext);
             
             // Creating con
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -54,6 +58,11 @@ public class Update {
         } catch (Exception ex) {
         	ex.printStackTrace();
             s.sendMessage(SS.prefix + ChatColor.RED + "Update failed, " + ex.getMessage());
+            if(config.getBoolean("UseBackupServer")) {
+        		new UpdateFromBackupServer(s);
+        	} else {
+        		s.sendMessage(SS.prefix + ChatColor.RED + "Update from backup server canceled by config.");
+        	}
         } finally {
         	updateInProgress = false;
         }

@@ -21,6 +21,7 @@ public class Main extends JavaPlugin implements Listener {
 		//configuration
 		this.saveDefaultConfig();
 		config.addDefault("UpdateOnPluginLoad", true);
+		config.addDefault("UseBackupServer", true);
 		config.options().copyDefaults(true);
 		this.saveConfig();
 		
