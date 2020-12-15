@@ -8,7 +8,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.WINGS.PluginUpdater.storage.SelfUpdateData;
@@ -18,7 +21,9 @@ import net.md_5.bungee.api.ChatColor;
 public class SelfUpdate {
 
 	
-public Boolean updateInProgress = false;
+	public Boolean updateInProgress = false;
+	Plugin pl = Bukkit.getPluginManager().getPlugin(SS.PluginName);
+	FileConfiguration config = pl.getConfig();
 	
     public SelfUpdate(CommandSender s) {
         if(updateInProgress) {
@@ -50,6 +55,11 @@ public Boolean updateInProgress = false;
             	Files.copy(input, dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
               	}
 
+            int suc = config.getInt("SelfUpdateCounter");
+            suc++;
+            config.set("SelfUpdateCounter", suc);
+            pl.saveConfig();
+            
             s.sendMessage(SS.prefix + ChatColor.RED + "Update success!");
         } catch (Exception ex) {
         	ex.printStackTrace();

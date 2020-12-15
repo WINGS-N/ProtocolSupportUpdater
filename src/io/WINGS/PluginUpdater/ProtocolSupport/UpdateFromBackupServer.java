@@ -11,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.WINGS.ProtocolSupportUpdater.storage.SS;
@@ -19,7 +20,8 @@ import net.md_5.bungee.api.ChatColor;
 
 public class UpdateFromBackupServer {
 
-	FileConfiguration config = Bukkit.getPluginManager().getPlugin(SS.PluginName).getConfig();
+	Plugin pl = Bukkit.getPluginManager().getPlugin(SS.PluginName);
+	FileConfiguration config = pl.getConfig();
 	public Boolean updateInProgress = false;
 	
     public UpdateFromBackupServer(CommandSender s) {
@@ -54,6 +56,11 @@ public class UpdateFromBackupServer {
             	Files.copy(input, dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
               	}
 
+            int buc = config.getInt("BackupUpdateCounter");
+            buc++;
+            config.set("BackupUpdateCounter", buc);
+            pl.saveConfig();
+            
             s.sendMessage(SS.prefix + ChatColor.RED + "Update from backup server success!");
         } catch (Exception ex) {
         	ex.printStackTrace();
