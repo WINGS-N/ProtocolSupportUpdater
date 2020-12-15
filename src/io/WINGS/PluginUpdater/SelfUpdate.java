@@ -29,8 +29,6 @@ public Boolean updateInProgress = false;
         s.sendMessage(SS.prefix + ChatColor.RED + "Self-Updating " + SelfUpdateData.PluginName + "...");
         
         updateInProgress = true;
-        //@SuppressWarnings("unused")
-		//File psFile = null;
 
         try {
         	Method getFile = JavaPlugin.class.getDeclaredMethod("getFile");
