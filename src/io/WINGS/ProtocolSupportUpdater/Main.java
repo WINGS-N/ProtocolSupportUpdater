@@ -18,7 +18,7 @@ public class Main extends JavaPlugin implements Listener {
 	public Logger log = getLogger();
 	private static CommandListener exec = new CommandListener();
 	FileConfiguration config = this.getConfig();
-	Metrics m = new Metrics(Bukkit.getPluginManager().getPlugin(SS.PluginName), MetricsData.id);
+	Metrics m = new Metrics(this, MetricsData.id);
 	
 	public void onEnable() {
 		//configuration

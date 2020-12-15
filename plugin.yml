@@ -1,6 +1,6 @@
 name: ProtocolSupportUpdater
 main: io.WINGS.ProtocolSupportUpdater.Main
-version: 1.9
+version: 2.0
 author: WINGS7
 website: https://github.com/WINGS07/ProtocolSupportUpdater or https://www.spigotmc.org/resources/protocolsupportupdater.85448/
 description: 'This plugin can update ProtocolSupport.'
